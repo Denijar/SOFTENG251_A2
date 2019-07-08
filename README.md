@@ -1,39 +1,46 @@
 # Shift_Manager
 
-SOFTENG 251 Assignment 2
+# SOFTENG 251 Assignment 2
+--------------------------
 
-Domain Model Concepts and Relationships
+## Domain Model Concepts and Relationships
+---------------------------------------
+
 (Bold highlights the relationship between each concept)
+
 Server
-•	A server for the Shift Manager System
-•	Has one roster at a time
+	* A server for the Shift Manager System
+	* Has one **roster** at a time
 Roster 
-•	Has the name of the shop to which the roster applies
-•	Has 7 days on which the shop may or may not be open
-•	Has staff members
+	* Has the name of the shop to which the roster applies
+	* Has 7 **days** on which the shop may or may not be **open**
+	* Has **staff members**
 Working Day
-•	A day of the week that the shop is open
-•	Has a name (Monday, Tuesday etc.)
-•	Has working hours (is a time period)
-•	Has shifts scheduled for that day
+	* A day of the week that the shop is open
+	* Has a name (Monday, Tuesday etc.)
+	* Has working hours **(is a time period)**
+	* Has **shifts** scheduled for that day
 Shift
-•	Has a start time and end time (is a time period) (which must be within the working hours for the working day on which the shift is scheduled)
-•	Can have up to 1 staff member assigned as a manager
-•	Can have any number of staff members assigned as workers
-•	Has a number of workers required
+	* Has a start time and end time **(is a time period)** (which must be within the working hours for the working day on which the shift is scheduled)
+	* Can have up to 1 **staff member** assigned as a manager
+	* Can have any number of **staff members** assigned as workers
+	* Has a number of workers required
 Time Period
-•	Has a start time and end time
+	* Has a start time and end time
 Staff member
-•	Is registered (given that they exist as a Staff Member in the system)
-•	Has a family name and a given name
-•	Can have shifts they have been assigned to as a manager
-•	Can have shifts they have been assigned to as a worker
+	* Is registered (given that they exist as a Staff Member in the system)
+	* Has a family name and a given name
+	* Can have **shifts** they have been assigned to as a manager
+	* Can have **shifts** they have been assigned to as a worker
 
-My Object-Orientated Design
+## My Object-Orientated Design
+------------------------------
+
 Each of these above concepts is represented by a class and the bold text indicates how the objects created from those classes interact.
-Scenario to demonstrate Object Creation and Interaction in my design: 
 
-“A roster is created for Bunnings. The working hours for Monday are set from 6am to 4pm, and a shift is scheduled from 12:00 to 14:00. John Doe is registered and assigned to that shift as a worker. The user then tries to schedule a shift from 13:00 to 16:00 on Monday.”
+#### Scenario to demonstrate Object Creation and Interaction in my design: 
+
+*“A roster is created for Bunnings. The working hours for Monday are set from 6am to 4pm, and a shift is scheduled from 12:00 to 14:00. John Doe is registered and assigned to that shift as a worker. The user then tries to schedule a shift from 13:00 to 16:00 on Monday.”*
 
 A roster object is created with a name field Bunnings.
 
@@ -55,21 +62,21 @@ There are two classes ShiftList and ShiftListWorkingDay which act as encapsulate
 
 There is only one StaffList encapsulated collection class. While the Roster class and Shift class interact with the list differently, there is a lot more of the same methods used by each. It made sense to leave this as one class.
 
-Problems Handled and Exception Use
-•	Input is null or empty
-•	A time input doesn’t match the required format of HH:mm
-o	checkPatternMatch method in TimePeriod class throws an exception
-•	The start time is after or the same as the end time, or either time is 00:00
-o	setDateFields method in TimePeriod class throws an exception
-•	dayOfWeek string is incorrect
-o	getDay method in the Roster class throws an exception if the string isn’t a code for the hashmap in the WeekDays enum
-•	A Shift overlaps with another or is not within the day’s working hours
-o	addShift method in the Day class throws an exception in both of these cases
-•	A shift already has a manager
-o	addStaffMember method in the Shift class throws an exception 
-•	The worker trying to be assigned has already been assigned to that shift
-o	addStaffMember method in the Shift class throws an exception 
-•	The user tries to schedule a shift for a day that the shop isn’t open
-o	getDay method in the Roster class throws an exception.
+#### Problems Handled and Exception Use
+* Input is null or empty
+* A time input doesn’t match the required format of HH:mm
+	* checkPatternMatch method in TimePeriod class throws an exception
+* The start time is after or the same as the end time, or either time is 00:00
+	* setDateFields method in TimePeriod class throws an exception
+* dayOfWeek string is incorrect
+	* getDay method in the Roster class throws an exception if the string isn’t a code for the hashmap in the WeekDays enum
+* A Shift overlaps with another or is not within the day’s working hours
+	* addShift method in the Day class throws an exception in both of these cases
+* A shift already has a manager
+	* addStaffMember method in the Shift class throws an exception 
+* The worker trying to be assigned has already been assigned to that shift
+	* addStaffMember method in the Shift class throws an exception 
+* The user tries to schedule a shift for a day that the shop isn’t open
+	* getDay method in the Roster class throws an exception.
 
 The exception thrown is ShiftManException, which extends Exception. All exceptions are caught in the ShiftManServer class, and the corresponding error message is displayed to the user.
