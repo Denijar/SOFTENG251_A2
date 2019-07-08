@@ -1,44 +1,41 @@
 # Shift_Manager
 
 # SOFTENG 251 Assignment 2
---------------------------
 
 ## Domain Model Concepts and Relationships
----------------------------------------
 
 (Bold highlights the relationship between each concept)
 
-Server
+* Server
 	* A server for the Shift Manager System
 	* Has one **roster** at a time
-Roster 
+* Roster 
 	* Has the name of the shop to which the roster applies
 	* Has 7 **days** on which the shop may or may not be **open**
 	* Has **staff members**
-Working Day
+* Working Day
 	* A day of the week that the shop is open
 	* Has a name (Monday, Tuesday etc.)
 	* Has working hours **(is a time period)**
 	* Has **shifts** scheduled for that day
-Shift
+* Shift
 	* Has a start time and end time **(is a time period)** (which must be within the working hours for the working day on which the shift is scheduled)
 	* Can have up to 1 **staff member** assigned as a manager
 	* Can have any number of **staff members** assigned as workers
 	* Has a number of workers required
-Time Period
+* Time Period
 	* Has a start time and end time
-Staff member
+* Staff member
 	* Is registered (given that they exist as a Staff Member in the system)
 	* Has a family name and a given name
 	* Can have **shifts** they have been assigned to as a manager
 	* Can have **shifts** they have been assigned to as a worker
 
 ## My Object-Orientated Design
-------------------------------
 
 Each of these above concepts is represented by a class and the bold text indicates how the objects created from those classes interact.
 
-#### Scenario to demonstrate Object Creation and Interaction in my design: 
+### Scenario to demonstrate Object Creation and Interaction in my design: 
 
 *“A roster is created for Bunnings. The working hours for Monday are set from 6am to 4pm, and a shift is scheduled from 12:00 to 14:00. John Doe is registered and assigned to that shift as a worker. The user then tries to schedule a shift from 13:00 to 16:00 on Monday.”*
 
@@ -52,7 +49,7 @@ Registering John Doe creates a StaffMember object with the name fields John and 
 
 Another shift object is created alongside a TimePeriod object with startTime 13:00 and endTime 16:00. However, the addShift method in the WorkingDay class throws an exception as this overlaps with the existing shift. This shift is hence not added to Monday’s ShiftList.
 
-Some Design Decision Justifications
+### Some Design Decision Justifications
 
 A WorkingDay object is only created when working hours are set. This is because a WorkingDay object is a time period, and a time period is defined by a start and end time. If a day doesn’t have working hours, then it is not a time period. Also, if it doesn’t have working hours then the shop is not open on this day, and shifts cannot be scheduled on it. Therefore, the system doesn’t need a WorkingDay object to interact with until the user sets working hours. 
 
@@ -62,7 +59,8 @@ There are two classes ShiftList and ShiftListWorkingDay which act as encapsulate
 
 There is only one StaffList encapsulated collection class. While the Roster class and Shift class interact with the list differently, there is a lot more of the same methods used by each. It made sense to leave this as one class.
 
-#### Problems Handled and Exception Use
+## Problems Handled and Exception Use
+
 * Input is null or empty
 * A time input doesn’t match the required format of HH:mm
 	* checkPatternMatch method in TimePeriod class throws an exception
